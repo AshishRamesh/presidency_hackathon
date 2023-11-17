@@ -1,12 +1,50 @@
-<!-- templates/home.html, templates/page1.html, templates/page2.html, templates/page3.html -->
-{% extends "bootstrap/base.html" %}
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
 
-{% block title %}My Flask App{% endblock %}
-
-{% block content %}
+    <!-- Navigation Bar -->
     {% include 'navbar.html' %}
-    <div class="container mt-3">
-        <h1>Welcome to the Home Page</h1>
-        <p>This is the home page content.</p>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <div class="d-flex">
+                    <div id="editableText" contenteditable="true">This text is editable.</div>
+                    <button id="toggleButton" class="btn btn-primary ml-2">Stop Editing</button>
+                    <button id="anotherButton" class="btn btn-secondary ml-2">To be added</button>
+                </div>
+            </div>
+        </div>
     </div>
-{% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Set initial state
+            var isEditing = true;
+
+            // Toggle button click event
+            $("#toggleButton").click(function () {
+                isEditing = !isEditing;
+                $("#editableText").attr("contenteditable", isEditing);
+                $(this).text(isEditing ? "Stop Editing" : "Toggle Editing");
+            });
+
+            // Another button click event (customize as needed)
+            $("#anotherButton").click(function () {
+                alert("This button doesn't do anything yet!");
+            });
+        });
+    </script>
+</body>
+</html>
