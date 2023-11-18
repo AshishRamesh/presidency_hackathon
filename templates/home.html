@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.19.0/font/bootstrap-icons.css">
 </head>
 <body>
 
@@ -15,10 +16,15 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6 text-center">
+                <h1></h1>
                 <div class="d-flex">
                     <div id="editableText" contenteditable="true">This text is editable.</div>
-                    <button id="toggleButton" class="btn btn-primary ml-2">Stop Editing</button>
-                    <button id="anotherButton" class="btn btn-secondary ml-2">To be added</button>
+                    <button id="toggleButton" class="btn btn-primary ml-2">
+                        <i class="bi bi-pencil"></i></button>
+                    <div class="custom-control custom-switch ml-2">
+                        <input type="checkbox" class="custom-control-input" id="toggleSwitch">
+                        <label class="custom-control-label" for="toggleSwitch"></label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -32,17 +38,18 @@
         $(document).ready(function () {
             // Set initial state
             var isEditing = true;
+            var anotherButtonValue = 0;
 
             // Toggle button click event
             $("#toggleButton").click(function () {
                 isEditing = !isEditing;
                 $("#editableText").attr("contenteditable", isEditing);
-                $(this).text(isEditing ? "Stop Editing" : "Toggle Editing");
             });
 
-            // Another button click event (customize as needed)
-            $("#anotherButton").click(function () {
-                alert("This button doesn't do anything yet!");
+            // Another button (toggle switch) change event
+            $("#toggleSwitch").change(function () {
+                // Toggle between 0 and 1
+                anotherButtonValue = this.checked ? 1 : 0;
             });
         });
     </script>
