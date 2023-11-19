@@ -1,12 +1,96 @@
-<!-- templates/home.html, templates/page1.html, templates/page2.html, templates/page3.html -->
-{% extends "bootstrap/base.html" %}
-
-{% block title %}My Flask App{% endblock %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Flask app</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
     {% include 'navbar.html' %}
-    <div class="container mt-3">
-        <h1>2nd Page</h1>
-        <p>This is the 2nd page.</p>
+
+    <div class="container">
+        <h2>Page 2</h2>
+        <button class="btn btn-primary" id="addDeviceBtn">Add Device</button>
+        <div id="deviceContainer"></div>
     </div>
-{% endblock %}
+
+    <script>
+        // Function to add a device box
+        function addDevice() {
+            // Create a new device box
+            var deviceBox = document.createElement('div');
+            deviceBox.className = 'device-box';
+
+            // Create input for device name
+            var deviceNameInput = document.createElement('input');
+            deviceNameInput.type = 'text';
+            deviceNameInput.placeholder = 'Device Name';
+
+            // Create input for timer
+            var timerInput = document.createElement('input');
+            timerInput.type = 'number';
+            timerInput.min = 1;
+            timerInput.max = 60;
+            timerInput.placeholder = 'Set Timer (seconds)';
+
+            // Create a countdown display element
+            var countdownDisplay = document.createElement('div');
+            countdownDisplay.className = 'countdown';
+
+            // Create a close button
+            var closeButton = document.createElement('button');
+            closeButton.className = 'btn btn-danger';
+            closeButton.innerText = 'Close';
+            closeButton.addEventListener('click', function () {
+                clearInterval(countdownInterval);
+                deviceBox.remove();
+            });
+
+            // Append inputs and close button to the device box
+            deviceBox.appendChild(deviceNameInput);
+            deviceBox.appendChild(timerInput);
+            deviceBox.appendChild(countdownDisplay);
+            deviceBox.appendChild(closeButton);
+
+            // Append the device box to the container
+            document.getElementById('deviceContainer').appendChild(deviceBox);
+
+            // Countdown logic
+            var countdownInterval;
+
+            function updateCountdown() {
+                var timerValue = parseInt(timerInput.value, 10);
+
+                if (timerValue > 0) {
+                    timerValue--;
+                    countdownDisplay.innerText = 'Time remaining: ' + timerValue + 's';
+                } else {
+                    clearInterval(countdownInterval);
+                    countdownDisplay.innerText = 'Time expired!';
+                }
+
+                // Update the timer input value
+                timerInput.value = timerValue;
+            }
+
+            // Event listener for Enter key in the timer input
+            timerInput.addEventListener('keyup', function (event) {
+                if (event.key === 'Enter') {
+                    // Start countdown when Enter is pressed
+                    countdownInterval = setInterval(updateCountdown, 1000);
+                }
+            });
+        }
+
+        // Event listener for the "Add Device" button
+        document.getElementById('addDeviceBtn').addEventListener('click', addDevice);
+    </script>
+
+    <!-- Bootstrap and jQuery scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
